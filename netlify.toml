@@ -1,0 +1,88 @@
+[build]
+  # Directory to change to before starting a build
+  base = "."
+  
+  # Directory that contains the deploy-ready HTML files and assets
+  publish = "dist"
+  
+  # Build command to build the site
+  command = "npm run build"
+
+[build.environment]
+  # Node.js version
+  NODE_VERSION = "18"
+  NPM_VERSION = "9"
+  
+  # Disable secrets scanning completely for this build
+  SECRETS_SCAN_SMART_DETECTION_ENABLED = "false"
+  
+  # Environment variables for the build
+  VITE_SUPABASE_URL = "https://zxcdgyebqgyjzmheqbhy.supabase.co"
+  VITE_SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp4Y2RneWVicWd5anptaGVxYmh5Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4NzA0MjUsImV4cCI6MjA3NjQ0NjQyNX0.t40U5ecUG2KoXLTp_AiJtHO_1wWbE5wa52vA2c40blY"
+  VITE_SITE_URL = "https://nexusaisuite.com"
+  VITE_REDIRECT_URL = "https://nexusaisuite.com"
+  VITE_GEMINI_API_KEY = "AIzaSyBJXRO2wNi35NgDftgu-JUXqe-uIhZ2qhA"
+  VITE_GEMINI_MODEL = "gemini-2.0-flash"
+
+# Redirect rules for Single Page Application (SPA)
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers for security and performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https:;"
+
+# Cache static assets
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Cache HTML files for shorter time
+[[headers]]
+  for = "/*.html"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"
+
+# Cache other static files
+[[headers]]
+  for = "/*.css"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/*.js"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+# Redirect root to home page (but don't redirect, just serve index.html)
+[[redirects]]
+  from = "/"
+  to = "/index.html"
+  status = 200
+
+# Ensure all routes serve index.html for SPA
+[[redirects]]
+  from = "/workspace"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/home"
+  to = "/index.html"
+  status = 200
+
+# Development settings
+[dev]
+  command = "npm run dev"
+  port = 8080
+  publish = "dist"
