@@ -1,21 +1,5 @@
 [build]
 builder = "nixpacks"
-nixpacksVersion = "latest"
-
-[nixpacks]
-phases = "build"
-build_plan = """
-  { pkgs }: {
-    build_phase = ''
-      npm ci
-      npm run build
-    '';
-    start_phase = ''
-      node server.js
-    '';
-  }
-"""
 
 [deploy]
-startCommand = "node server.js"
-healthCheckPath = "/"
+startCommand = "npm run start"
