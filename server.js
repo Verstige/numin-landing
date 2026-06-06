@@ -42,6 +42,6 @@ const server = createServer((req, res) => {
   }
 });
 
-server.listen(port, () => {
-  console.log(`Numin running at http://localhost:${port}`);
+server.listen(port, '0.0.0.0', () => {
+  console.log(`Numin running at http://0.0.0.0:${port}`);
 });
