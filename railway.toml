@@ -1,6 +1,6 @@
 [build]
-builder = "docker"
-dockerfile = "Dockerfile"
+builder = "nixpacks"
+nixpacksVersion = "latest"
 
 [deploy]
 startCommand = "node server.js"
