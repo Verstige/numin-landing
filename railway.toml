@@ -4,4 +4,3 @@ dockerfile = "Dockerfile"
 
 [deploy]
 startCommand = "node server.js"
-healthCheckPath = "/"
