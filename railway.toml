@@ -1,6 +1,0 @@
-[build]
-builder = "docker"
-dockerfile = "Dockerfile"
-
-[deploy]
-startCommand = "node server.js"
